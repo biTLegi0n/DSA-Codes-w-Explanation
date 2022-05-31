@@ -13,21 +13,52 @@ using namespace std;
     Approach : This algorithm is used to return the size of LIS but not the LIS array.
                 Its time Complexity is O(nlogn) but we cannot have the array from this algo
     What we basically do in this is that we check with the last element of the vector, if it is greater than the current element
-    of array, we add the current element, a[i] to the vector and if the last element is smaller, then we have to replace the 
+    of array, we add the current element, a[i] to the vector and if the last element is smaller, then we have to replace the
     current element, a[i] with any number just greater than that.(i.e we use upper_bound(a[i]) ).
-    NOTE : we have no intention to keep the LIS, our main focus is to find the length of LIS. So, we dont care if replacing any 
+    NOTE : we have no intention to keep the LIS, our main focus is to find the length of LIS. So, we dont care if replacing any
             number in vector disturbs our LIS, its just that it wont change the length.
 
     IMP NOTE : If we need to find length of Strictly Incr. we have to use LOWER_BOUND. If we have to find only increasing, we use UPPER_BOUND
     For MORE : https://www.youtube.com/watch?v=qW1O1a40-No
 */
 
+// O(NlogN) solution
+class Solution {
+public:
+    static bool compare(vector <int> &a, vector <int> &b){
+        if(a.front()<b.front()) return true;
+        if(a.front()==b.front())
+            if(a.back() > b.back()) return true;
+        return false;
+    }
+    int maxarr(vector<vector<int>>& arr) {
+        sort(arr.begin(), arr.end(), compare);
+
+        vector <int> russian;
+        russian.push_back(arr[0][1]);
+
+        int last_first = arr[0][0];
+        for(int i = 1; i<arr.size(); i++){
+            if(arr[i][1]>russian.back())
+                russian.push_back(arr[i][1]);
+            else
+            if(arr[i][1]<russian.back()){
+                int pos = lower_bound(russian.begin(), russian.end(), arr[i][1]) - russian.begin();
+                russian[pos] = arr[i][1];
+            }
+        }
+
+        return russian.size();
+    }
+};
+
+// O(N^2) solution
 int LIS(int a[], int n){
     vi v;
     v.pb(a[0]);         // At first, we need to have something in our vector so that we can compare a[i] with it
 
     for(int i = 0; i<n; i++){
-        if(a[i] < *(prev(v.end()))){         // If a[i] is smaller than the last element of vector, we replace this with any 
+        if(a[i] < *(prev(v.end()))){         // If a[i] is smaller than the last element of vector, we replace this with any
             int pos = lower_bound(v.begin(), v.end(), a[i]) - v.begin();        // element just greater than a[i] ::-> LowerB as strictly Incr
             v[pos] = a[i];
         }
