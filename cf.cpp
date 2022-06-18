@@ -1,60 +1,69 @@
 #include<bits/stdc++.h>
-#define vi vector <ll>
-#define vl vector <long long>
-#define vc vector <char>
-#define vp vector <pair <ll, ll> >
-#define INF ll_MAX
-#define MIN ll_MIN
-#define pb push_back
-#define mod 998244353
-#define mpp make_pair
-#define ll long long
-#define FAST ios::sync_with_stdio(0); cin.tie(0); cout.tie(0)
-
 using namespace std;
+#define fastio ios_base::sync_with_stdio(false);cin.tie(NULL);cout.tie(NULL);
+typedef long long ll;
 
-unordered_map <ll,ll> mp;
+string fun(string str, int newhr, int newmin){
+    string hour="", minute="";
+    bool flag = false;
+    for(int i = 0; i<str.size(); i++){
+        if(str[i]==':'){ 
+            flag = true;
+            continue;
+        }
+        if(!flag) hour.push_back(str[i]);
+        else minute.push_back(str[i]);
+    }
+    int hr = stoi(hour) + newhr;
+    int min = stoi(minute) + newmin;
+    
+    if(min>=60){
+        hr++;
+        min %= 60;
+    }
 
-ll fun(ll n){
-    if(n==0) return 0;
-    if(n==1) return 1;
-    if(mp.find(n)!=mp.end()) return 1;
+    hr %= 24;
 
-    ll temp = n;
-    while(temp--){
-        if(mp.find(temp)!=mp.end()){
-            cout<<"now jump to "<<temp<<"\n";
-            return 1+fun(n-temp);
+    string ghanta = to_string(hr);
+    string ghanti = to_string(min);
+    if(ghanta.size()==1) ghanta.insert(ghanta.begin(),'0');
+    if(ghanti.size()==1) ghanti.insert(ghanti.begin(),'0');
+    return ghanta+':'+ghanti;
+}
+
+bool ispalin(string str){
+    int n = str.size();
+    for (int i = 0; i<n/ 2; i++) {
+        if (str[i] != str[n-i-1]) {
+            return false;
         }
     }
-    return -1;
+    return true;
 }
 
 int main()
 {
-    FAST;
 
-    ll t;
+    int t;
     cin>>t;
-
-    ll num = 1;
-    for(ll i = 1; i<=40; i++){
-        num = num*2;
-        mp[num]++;
-    }
-
-    num = 1;
-    ll res = 1;
-    for(ll i = 1; i<=12; i++){
-        res *= num;
-        mp[res]++;
-        num++;
-    }
-
     while(t--){
-        ll n;
-        cin>>n;
+        string str;
+        int x;
+        cin>>str>>x;
+        int hr = stoi(str.substr(0,2));
+        int min = stoi(str.substr(3,2));
+        
+        int newhr = x/60, newmin = x-(newhr*60);
 
-        cout<<fun(n)<<"\n";
+        map <string,int> mp;
+        int count = 0;
+        while(true){
+            if(ispalin(str)) count++;
+            mp[str]++;
+            string temp = fun(str,newhr,newmin);
+            str = temp;
+            if(mp.find(str)!=mp.end()) break;
+        }
+        cout<<count<<"\n";
     }
 }
