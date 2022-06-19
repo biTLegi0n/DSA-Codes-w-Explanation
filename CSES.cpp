@@ -1,8 +1,8 @@
 #include<bits/stdc++.h>
-#define vi arrtor <ll>
-#define vl arrtor <long long>
-#define vc arrtor <char>
-#define vp arrtor <pair <ll, ll> >
+#define vi vector <ll>
+#define vl vector <long long>
+#define vc vector <char>
+#define vp vector <pair <ll, ll> >
 #define INF ll_MAX
 #define MIN ll_MIN
 #define pb push_back
@@ -13,40 +13,45 @@
 
 using namespace std;
 
-int main()
-{
-    FAST;
-
+int main() {
     int t;
     cin>>t;
-    while(t--){
-        int n, k;
-        cin >> n >> k;
+    while(t--)
+    {
+        int n;
+        cin>>n;
+        string s;
+        cin>>s;
 
-        vector <int> arr(n), temp(n,1), v;
-
-        for(int i = 0; i<n; i++) cin>>arr[i];
-
-        int count = 0;
-        int ans = 0;
-        for (int i = 1; i < n; i++) {
-            if(2*arr[i]>arr[i-1]){
-				count++;
-			}
-			else{
-				count=0;
-			}
-			if(count==k){
-				ans++;
-			}
-			else if(count>k){
-				count--;
-				if(count==k){
-					ans++;
-				}
-			}
+        vector<int> ans;
+        if(s[0]=='9')
+        {
+            bool flag = true;
+            for(int i=s.size()-1;i>=0;i--)
+            {
+                if((s[i]=='0' or s[i]=='1') and flag)
+                    ans.push_back(1 - (s[i]-'0'));
+                else if(flag)
+                {
+                    ans.push_back(11 - (s[i]-'0'));
+                    flag = !flag;
+                }
+                else if(s[i]=='0')
+                {
+                    ans.push_back(0);
+                    flag = !flag;
+                }
+                else
+                    ans.push_back(10 - (s[i]-'0'));
+            }
         }
-
-        cout<<ans<<"\n";
+        else{
+            for(int i=s.size()-1;i>=0;i--) ans.pb(9 - (s[i]-'0'));
+        }
+        
+        reverse(ans.begin(),ans.end());
+        for(auto u: ans)
+            cout<<u;
+        cout<<endl;
     }
 }
