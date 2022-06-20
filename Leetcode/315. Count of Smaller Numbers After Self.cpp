@@ -1,3 +1,18 @@
+#include<bits/stdc++.h>
+using namespace std;
+
+/**
+  @brief    This is another good problem of Merge Sort. Here, at first, i kept thinking with monotonic stack, but later, a friend of mine told
+            me to approach such problems with merge sort. Why? Because in merge sort, we divide the array in two halves untill there is only
+            one element in the array, and when there is only one element in two arrays, its easy to compare that. Now, while merging the two
+            arrays, we find the number of elements that are smaller than current element. How?
+            Well, both the arrays are sorted, and left half is in left of right half. Thus, we know one thing for sure, that if there is an
+            element that is smaller than current element in right half, it surely lies in its right. Therefore, this way, using two pointers, 
+            we find all the elements smaller than an *index*.    
+            Yes! Index. Since there could be multiple occurences of same number, we can not store the data on the basis of elements, therefore
+            we store that on the basis of indices. And to store indices, we are preferrring vector only, coz map might throw TLE. s 
+ */
+
 class Solution {
 public:
     vector<int> countSmaller(vector<int>& nums) {
