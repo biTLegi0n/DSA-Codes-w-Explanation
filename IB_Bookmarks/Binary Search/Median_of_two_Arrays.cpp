@@ -29,7 +29,8 @@ using namespace std;
  */
 double findMedianSortedArrays(const vector<int> &arr1, const vector<int> &arr2) {
     // basically, we prefer to have minimum size array as array1 to avoid the possible WA and
-    // RE.
+    // RE. You may note that we are initializing high as min(m,n), which will always be m, after this condition, we do this so that we may
+    // always select some elements from arr1, and may not have a runtimeError. 
 
     if(arr1.size()>arr2.size()) return findMedianSortedArrays(arr2,arr1);
     int m = arr1.size(), n = arr2.size();
@@ -48,6 +49,7 @@ double findMedianSortedArrays(const vector<int> &arr1, const vector<int> &arr2) 
                 return (max(l1,l2)+min(r1,r2))/2.0;
             else
                 return max(l1,l2)*1.0;  // since in case of odd, left has more elements, see req
+            // if we do high = mid, then we may need min(r1,r2) here. We need to see how we are partitioning the arrays. 
         }
         else
         if(l1>r2)

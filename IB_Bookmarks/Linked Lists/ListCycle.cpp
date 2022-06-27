@@ -10,6 +10,8 @@ using namespace std;
  *          Second, is when we actually find the start of the cycle. To do so, when we find the collision, we reset the fast
  *          pointer to start of linked list and keep the slow pointer at the collision. Now, we move both pointers by one step
  *          And when they meet, we find the start. This can be proved. See the photo "ListCycle.png".
+ *          S is distance from startnode to collision node and f is total distance travelled, where c is the circumference of circle
+ *          nc means we have traversed the cycle n times before finally colliding. 
  */
 
 struct ListNode {

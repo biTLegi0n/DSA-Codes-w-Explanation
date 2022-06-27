@@ -18,6 +18,28 @@ using namespace std;
                 - Atlast we also need to see the returning method, as if INT_MAX - 1 is returned, that means there is no way to 
                     achieve the sum we want from the given coins :() 
 */
+
+// Space optimized
+class Solution {
+public:
+    int coinChange(vector<int>& coins, int amount) {
+        int n = coins.size();
+        int dp[amount+1];
+        memset(dp,10004,sizeof(dp));
+        dp[0] = 0;
+
+        // Since this was an unbounded knapsack, therefore, we have to start j from 0 and move towards amoount. If it were bounded, we start 
+        // from amount and move towards 0. 
+        for(int i = 0; i<n; i++){
+            for(int j = 0; j<=amount; j++){
+                if(j>=coins[i])
+                    dp[j] = min(dp[j], 1+dp[j-coins[i]]);
+            }
+        }
+        return dp[amount]>=10004 ? -1 : dp[amount];
+    }
+};
+
 int min_coins(int n, int sum, int coins[])
 {
     int dp[n+1][sum+1];
@@ -42,17 +64,4 @@ int min_coins(int n, int sum, int coins[])
         return -1;
     else
     return dp[n][sum];
-}
-int main()
-{
-    int n, sum;
-    cout<<"Enter the number of coins : ";
-    cin>>n;
-    cout<<"Enter the total sum you want to achieve : ";
-    cin>>sum;
-    int coins[n];
-    cout<<"Enter the coins array : ";
-    for(int i = 0; i<n; i++)
-        cin>>coins[i];
-    cout<<"Minimum number of coins required to achieve "<<sum<<" are : "<<min_coins(n, sum, coins);
 }

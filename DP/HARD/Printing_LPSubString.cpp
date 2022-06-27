@@ -13,54 +13,48 @@ using namespace std;
 
 /*
     Approach : This code works in O(N^2) time but there is another algorithm, known as *MANACHER'S* algorithm to print LPSubstring in O(N).
-               Since that algo is way too hard to catch, that's why, i wrote this code in simple brute force. 
-                    - A glimpse of ManACher :: In Manacher's algo, we have to take a mirror in the string and check on its left and right
-                     sides, whether the characters are matching or not. If they keep on matching, we keep on increasing the lengths of pal
-                     indrome centered at that character. For more better understanding : https://www.youtube.com/watch?v=06QIlUBLTz4
+                There is a way to do this with dp as well. That is like, if we have a matching character, we check if the inner part between
+                those two characters is also matching or not. That we we forrm the dp. One loop start from starting and another from back. 
 
-               This code simply runs two loops, one from the starting till the end, another from end till i (starting loop variable)
-               Whenever we encounter two matching characters from first and last loop, we take that substring, check if it is palindrome or not, 
-               compare it with our current palindromic substring, and if it is greater, then update current palindrome with it. At last
-               we see if palindrome has been updated or not. If it has length == 0, we return first character, else return palindrome.
-               We return first character as single character is always palindrome. 
-
-               --> Same work is done with DP and that too has a xomplexity of O(N^2)
+                Here, this approach is algorithmic. We are not using any space here, and its purely O(n*n) with just two pointers each time. 
+                The code is self explanatory. We loop through the string, and at each character, we form two cases 
+                    1. If this character is the mid character of a odd length string
+                    2. If this character is the mid character of a even length string.   
+                If it is odd length, we start the two pointers from left and right of that character and move in both directions untill the 
+                characters are matching
+                If it is even length, we start from the same character and one right character and move untill the characters are matching. 
 */
 
-string lpsubstr(string s){
-
-    if(s.length() == 1)
-        return s;
-    
-    // The string that we will return finally
-    string lps = "";
-
-    // One loop from starting and another from end
-    for(int i = 0; i<s.length(); i++){
-        for(int j = s.length()-1; j>=i; j--){
-            // If characters match and length of this substr is greater than current LPS j-i (+1) because j and i are indices from 0
-            if(s[i] == s[j] && j-i+1 > lps.length()){
-                // Check whether this current substring is palindrome or not by comparing it with its reverse
-                string temp = s.substr(i, j-i+1);
-                string rev = temp;
-                reverse(rev.begin(), rev.end());
-                
-                if(temp == rev)
-                    lps = temp;
+class Solution{   
+public:
+    string longestPalindrome(string str){
+        int len = 1;
+        string res = "";
+        res.push_back(str[0]);
+        for(int i = 0; i<str.size(); i++){
+            // odd length
+            int left = i-1, right=i+1;
+            while(left>=0 and right<str.size() and str[left]==str[right]){ 
+                if(right-left+1>len) 
+                    len = right-left+1, res = str.substr(left,len);
+                left--, right++;
+            }// even length
+            left = i, right = i+1;
+            while(left>=0 and right<str.size() and str[left]==str[right]){ 
+                if(right-left+1>len) 
+                    len = right-left+1, res = str.substr(left,len);
+                left--, right++;
             }
         }
+        return res;
     }
-
-    if(lps.length() == 0)
-        return lps = s[0];
-    
-    return lps;
-}
+};
 
 int main()
 {
+    Solution obj;
     string s;
     cout<<"Enter the string : ";
     cin>>s;
-    cout<<"lOngest Palindromic SubString is : "<<lpsubstr(s)<<"\n";
+    cout<<"lOngest Palindromic SubString is : "<<obj.longestPalindrome(s)<<"\n";
 }

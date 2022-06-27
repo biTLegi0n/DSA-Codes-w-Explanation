@@ -28,6 +28,49 @@ int dp[10005][10005];
                       and update them in dp table
 */
 
+// This code runs faster than the later one, because this code only checks the right substring, if the left is palindrome.
+// It saves lots of regrous recusrive calls on the left substring, which are of no good to us. 
+class Solution {
+public:
+    int minCut(string s) {
+        vector <vector<int>> dp(s.size(),vector<int>(s.size(),-1));
+        return fun(0,s.size()-1,s,dp);
+    }
+protected:
+    int fun(int i, int j, string &str, vector<vector<int>>&dp){
+        if(i >= j)
+            return 0;
+        
+        if(ispalin(str, i, j)){
+            dp[i][j] = 0;
+            return 0;
+        }
+
+        if(dp[i][j] != -1)
+            return dp[i][j];
+
+        int ans = 2002;
+        for(int k = i; k<j; k++){
+            // Before calling the recursion on the right part, we check if the left part is palindrome or not. If only it is palindrome, we 
+            // gp on the right part. 
+            if(ispalin(str,i,k)){
+                ans = min(ans,1+fun(k+1,j,str,dp));
+            }
+        }
+        return dp[i][j] = ans;
+    }
+private:
+    bool ispalin(string &str, int i, int j){
+        while(i<j){
+            if(str[i]!=str[j]) return false;
+            i++, j--;
+        }
+        return true;
+    }
+};
+
+// The below code was the base standard code, which i wrote when i first learned it. 
+
 // Note : We are passing 'i' and 'j' in isPalindrome function because each time, we pass a substring with different i and j. If we wouldn't
 //        pass these, we would check for string 's' all the time because and not any substring of string 's'. 
 bool ispalindrome(string s, int i, int j){

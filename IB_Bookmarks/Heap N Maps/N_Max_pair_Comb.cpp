@@ -10,6 +10,8 @@ using namespace std;
             we make a decision. we either move one pointer to the left in 1st array or in 2nd array, keeping another pointer at the
             same position. But we do this for both the arrays, ie we push i-1,j and i,j-1 to the priority queue and in each iteration
             we pass the top to the res array because it can be observed that the max sum will be one of those two pairs in each iter.
+
+            This problem is same as Maximum Sum Combination
 */
 
 vector<int> solve(vector<int> &A, vector<int> &B) {

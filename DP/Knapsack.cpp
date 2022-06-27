@@ -13,6 +13,18 @@ using namespace std;
 int dp_rec[1005][1005];
 int dp_tab[1005][1005];
 
+// Knapsack with 1D dp
+int KnapSack(int val[], int wt[], int n, int W)
+{
+    int dp[W+1];
+    memset(dp, 0, sizeof(dp));
+
+    for(int i=0; i < n; i++)
+        for(int j=W; j>=wt[i]; j--)
+            dp[j] = max(dp[j] , val[i] + dp[j-wt[i]]);
+    return dp[W];
+}
+
 // This function shows the implementation of Knapsack using Recursion and Memoization
 int knapsack_rec(int n, int w, int val[], int wt[]){
     if(n == 0 || w <= 0)

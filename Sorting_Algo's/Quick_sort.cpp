@@ -38,7 +38,7 @@ using namespace std;
 
 int part(vector<int>&arr, int start, int end){
     int pivot = arr[end], pindex = start;
-    for(int i = start; i<end; i++){
+    for(int i = start; i<=end; i++){
         if(arr[i]<=pivot) swap(arr[i],arr[pindex]), pindex++;
     }
     swap(arr[pindex],arr[end]);
@@ -47,6 +47,10 @@ int part(vector<int>&arr, int start, int end){
 
 void quick_sort(vector<int> &arr, int start, int end){
     if(end<=start) return;
+
+    // This one line below improves the overall performance of this Quick sort algorithm. We are choosing a random element from the start
+    // and end region and swapping it with the last element. This will put a random element at the end, which we are taking as our pivot. 
+    swap(arr[start + rand() % (end - start + 1)], arr[end]);
 
     int pivot_index = part(arr,start,end);
     quick_sort(arr,start,pivot_index-1);

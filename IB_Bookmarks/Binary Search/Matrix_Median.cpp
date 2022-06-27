@@ -48,7 +48,7 @@ int findMedian(vector<vector<int> > &mat) {
         for a number that gives me mid, which has number of elements <= required elements. This case also handles the cases where the
         median is repeated. For example, if we have a final array as [1,2,3,4,6,6,6,6,7], here we know that median will be 6, but the below
         code snippet might've returned 5. But now, even when we have 5, we will run the while loop till the case when low>high!!
-        At this point, we will be standing at our median. This is not normal in Binary Search but this is a good variation.
+        At this point, we will be standing at our median.
         */
         // if(smaller == req+1){
         //     return mid;

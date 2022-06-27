@@ -5,6 +5,10 @@ using namespace std;
             use this concept. For example, in this question, we are asked to find number of subsets having sum in the range [0,B].
             therefore, ans = numberofsubset(B)-numberofsubset(0).
             Similiarly, if we are asked to find something in between [l,r], ans = fun(r)-fun(l).
+
+            In this problem, it is very difficult to find subarrays having exactly B unique elements. Its very hard to code. But
+            we can easily find subarrays with atmost k unqiue elements. And similiarly, we can find subarrays with atmost k-1 
+            elements. And from these two, we can find subarrays having exact K unique elements, because exact k = atmost(k)-atmost(k-1)
 */
 int fun(vector <int>&arr, int k){
     if(k==0) return 0;

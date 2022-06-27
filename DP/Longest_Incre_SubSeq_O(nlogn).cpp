@@ -22,7 +22,6 @@ using namespace std;
     For MORE : https://www.youtube.com/watch?v=qW1O1a40-No
 */
 
-// O(NlogN) solution
 class Solution {
 public:
     static bool compare(vector <int> &a, vector <int> &b){
@@ -52,7 +51,6 @@ public:
     }
 };
 
-// O(N^2) solution
 int LIS(int a[], int n){
     vi v;
     v.pb(a[0]);         // At first, we need to have something in our vector so that we can compare a[i] with it

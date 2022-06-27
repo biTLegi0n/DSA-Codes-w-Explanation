@@ -10,8 +10,7 @@ using namespace std;
                 - Increment the pointer of the array which contains the minimum.
             Note that we increment the pointer of the array which has the minimum, because our goal is to decrease the
             difference. Increasing the maximum pointer is definitely going to increase the difference. Increase the
-            second maximum pointer can potentially increase the difference ( however, it certainly will not decrease the
-            difference ).
+            second maximum pointer can potentially increase the difference.
  */
 
 int minimize(const vector<int> &A, const vector<int> &B, const vector<int> &C) {

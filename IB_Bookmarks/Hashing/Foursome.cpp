@@ -2,7 +2,10 @@
 using namespace std;
 
 /**
-   @brief
+   @brief   This problem is just 3 sum in a loop. What we did in 3 sum, is what we will do here. We loop the array, fix a number, change the
+            target to target-(current element), and now, look for such three numbers that sum up to target-current. 
+            The overall complexity of this approach will be O(n^3). And space complextiy of this problem is O(N).
+            It could be done in O(1), if we use two pointers approach after sorting the array, coz we dont need to maintain any sort of order
 
  */
 
