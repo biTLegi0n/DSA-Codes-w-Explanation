@@ -17,6 +17,18 @@ using namespace std;
 
  */
 
+// Recursive Version
+int fun(int i, vector<vector<int>>&mat,vector<int>&dp){
+    if(i>=mat[0].size()) return 0;
+    if(dp[i]!=-1) return dp[i];
+    return dp[i] = max(max(mat[0][i],mat[1][i]) + fun(i+2,mat,dp), fun(i+1,mat,dp));
+}
+int adjacent(vector<vector<int> > &A) {
+    vector<int>dp(A[0].size(),-1);
+    return fun(0,A,dp);
+}
+
+// Tabulation
 int adjacent(vector<vector<int> > &arr) {
     int maxi = INT_MIN,ans = INT_MIN;
     vector <int> dp(arr[0].size(),-1);

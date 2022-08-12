@@ -6,9 +6,13 @@ using namespace std;
             check with every element, we go with MCM. Here, we run a loop between i and j, just like other MCM, and each time
             we check with idx and idx+1, we merge these two, thus we add their cost and call their left and right functions
             respectively. Their cost can be seen as the sum of that [i,j] segment because that is what it will be ultimately.
-            [1,2,3,4] here the cost depends totally on i and j. The cost of merging elements in [i,j] is sum of all elements
-            of [i,j]. If not getting this, solve some examples on paper. Then, when we have the cost of merging idx and idx+1
-            we call two recusive functions on left, ie [i,idx] and right [idx+1,j].
+            [1,2,3,4] here the cost depends totally on i and j. 
+            We should note that we are passing sum of the array as an argument to the function. Why? This is because the merging cost
+            of two parts of array will be the sum of those two parts only. Like, if we were to merge [1,2] AND [3,4], then the merging 
+            cost of these two parts wouldve been 3+7 only. Now, it can contain more element in each part but at the end, the merging cost
+            of two parts is their sum only.
+            The cost of merging elements in [i,j] is sum of all elements of [i,j]. If not getting this, solve some examples on paper. 
+            Then, when we have the cost of merging idx and idx+1, we call two recusive functions on left, ie [i,idx] and right [idx+1,j].
             Then just like mcm, we calculate the minimum value of answer.
  */
 

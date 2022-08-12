@@ -45,7 +45,7 @@ double findMedianSortedArrays(const vector<int> &arr1, const vector<int> &arr2) 
         if(req-mid!=n) r2 = arr2[req-mid];
 
         if(l1<=r2 and l2<=r1){
-            if((m+n)%2)
+            if((m+n)%2==0)
                 return (max(l1,l2)+min(r1,r2))/2.0;
             else
                 return max(l1,l2)*1.0;  // since in case of odd, left has more elements, see req
